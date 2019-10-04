@@ -28,8 +28,8 @@ export const BarPlot = ({
 
   const countMax = dataset.reduce((max, p) => (p.count > max ? p.count : max), dataset[0].count)
 
-  const xScale = d3.scaleBand().rangeRound([0, chartWidth]).padding(0.2).domain(dataset.map((d) => d.type))
-  const yScale = d3.scaleLinear().rangeRound([chartHeight, 0]).domain([0, countMax])
+  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(dataset.map((d) => d.type))
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax])
   const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#e5f5f9', '#006d2c'])
 
   return (
