@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const oregon_county_pop = require('./oregon_county_pop.json');
 
 const getGreatestCommonDenomOf = (x, y) => {
   if (typeof x !== 'number' || typeof y !== 'number') return false;
@@ -69,4 +70,25 @@ export const scatterDataNoEffect = () => {
     data.push(s);
   }
   return data;
+}
+
+export const get_oregon_county_pop = () => {
+  
+  let returnArray = []
+
+  for(let f of oregon_county_pop.features) {
+    let returnItem = {}
+    returnItem.id = f.properties.geoid
+    returnItem.type = f.properties.name
+    returnItem.count = f.properties.population
+    returnArray.push(returnItem)
+  }
+
+  returnArray.sort((a, b) => {
+    return a.count - b.count
+  })
+
+  returnArray.reverse()
+
+  return (returnArray)
 }

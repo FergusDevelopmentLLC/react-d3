@@ -4,6 +4,7 @@ import { BarPlot } from '../BarPlot/BarPlot';
 import { scatterData } from '../../Data/data';
 import { scatterDataNoEffect } from '../../Data/data';
 import { barData } from '../../Data/data';
+import { get_oregon_county_pop } from '../../Data/data';
 
 export const App = () => {
 
@@ -24,12 +25,12 @@ export const App = () => {
 
       <div>
         <BarPlot
-          data={barData()}
-          svgWidth={960 / 2}
-          svgHeight={460 / 2}
+          data={get_oregon_county_pop()}
+          svgWidth={960/1.5}
+          svgHeight={460/1.5}
           fireDelay={25}
-          tiltXLabels={true}
           onBarSelect={setSelectedBarId}
+          tiltXLabels={true}
         />
       </div>
       <div>{selectedBarId}</div>
