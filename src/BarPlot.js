@@ -18,13 +18,9 @@ export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
     const chartHeight = svgHeight - margin.top - margin.bottom
   
     const countMax = dataset.reduce((max, p) => (p.count > max ? p.count : max),dataset[0].count)
-    const x1 = d3.scaleBand().rangeRound([0, chartWidth]).padding(0.2)
-    const y1 = d3.scaleLinear().rangeRound([chartHeight, 0])
 
-    x1.domain(dataset.map((d) => d.type))
-    y1.domain([0, countMax])
-
-    const yScale = d3.scaleLinear().range([0, chartHeight]).domain([countMax, 0]);
+    const xScale = d3.scaleBand().rangeRound([0, chartWidth]).padding(0.2).domain(dataset.map((d) => d.type))
+    const yScale = d3.scaleLinear().rangeRound([chartHeight, 0]).domain([0, countMax])
     const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#e5f5f9', '#006d2c'])
 
     return (
@@ -33,10 +29,10 @@ export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
           {data.map((d, i) => (
             <React.Fragment key={`barFrag${d.type}`}>
               <Bar
-                x={x1(d.type)}
+                x={xScale(d.type)}
                 y={yScale(d.count)}
                 delay={i * fireDelay}
-                width={x1.bandwidth()}
+                width={xScale.bandwidth()}
                 height={chartHeight - yScale(d.count)}
                 color={colorScale(d.count)}
                 chartHeight={chartHeight}
@@ -55,8 +51,8 @@ export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
             chartHeight={chartHeight}
             chartWidth={chartWidth}
             tickWidth={5}
-            xScale={x1}
-            types = {data.map(a => a.type)}
+            xScale={xScale}
+            types={data.map(a => a.type)}
           />
         </g>
       </svg>
