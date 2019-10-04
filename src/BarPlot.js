@@ -6,7 +6,7 @@ import Bar from './Bar';
 
 const margin = { top: 20, right: 20, bottom: 20, left: 50 }
 
-export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay, dotRadius }) => {
+export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
 
     if (!data) {
       return <pre>Loading...</pre>

@@ -40,9 +40,9 @@ export const barData = () => {
   
   useEffect(() => {
     let barData = [
-      {"type":"Apples","count":5},
-      {"type":"Oranges","count":3},
-      {"type":"Pears","count":7},
+      {"type":"Apples","count":1453},
+      {"type":"Oranges","count":3638},
+      {"type":"Pears","count":6963}
     ]
     setBarData(barData)
   }, []);

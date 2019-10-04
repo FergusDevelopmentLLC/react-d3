@@ -9,13 +9,31 @@ export const AxisLeft = ({
       <g>
         <g>
           <line
-            x1="0"
-            y1="0"
-            x2="0"
+            x1={0}
+            y1={1}
+            x2={-tickWidth}
+            y2={1}
+            stroke="#000000"
+          />
+        </g>
+        <g>
+          <line
+            x1={0}
+            y1={0}
+            x2={0}
             y2={chartHeight}
             stroke="#000000"
           />
         </g>
+        <g>
+          <line
+            x1={chartWidth}
+            y1={chartHeight}
+            x2={chartWidth}
+            y2={chartHeight + tickWidth}
+            stroke="#000000"
+          />
+        </g>      
         {yScale.ticks().map(tickValue => (
           <g className="tick" transform={`translate(0,${yScale(tickValue)})`} key={`g${tickValue}`}>
             <line
