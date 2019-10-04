@@ -1,7 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
-import { AxisBottom } from './AxisBottom';
-import { AxisLeft } from './AxisLeft';
+import { AxisBottom } from '../Axis/AxisBottom';
+import { AxisLeft } from '../Axis/AxisLeft';
 import Mark from './Mark';
 import { MarkFunc } from './MarkFunc';
 

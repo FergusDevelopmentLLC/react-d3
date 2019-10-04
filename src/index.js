@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ScatterPlot } from './ScatterPlot';
-import { BarPlot } from './BarPlot';
-
-import { scatterData } from './Data';
-import { barData } from './Data';
+import { ScatterPlot } from './Components/ScatterPlot/ScatterPlot';
+import { BarPlot } from './Components/BarPlot/BarPlot';
+import { scatterData } from './Data/data';
+import { barData } from './Data/data';
 
 const App = () => {
   return (

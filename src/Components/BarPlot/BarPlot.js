@@ -1,7 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
-import { AxisBarBottom } from './AxisBarBottom';
-import { AxisLeft } from './AxisLeft';
+import { AxisBarBottom } from '../Axis/AxisBarBottom';
+import { AxisLeft } from '../Axis/AxisLeft';
 import Bar from './Bar';
 
 const margin = { top: 20, right: 20, bottom: 20, left: 50 }
