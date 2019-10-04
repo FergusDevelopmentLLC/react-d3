@@ -12,11 +12,20 @@ class Bar extends Component {
 
       let el = d3.select(this.barRef.current);
       
+      el.on('mouseover', () => {
+        this.props.onBarSelect(this.props.id)
+      })
+
+      el.on('mouseout', () => {
+        this.props.onBarSelect(null)
+      })
+
       el.transition()
-          .duration(500)
-            .delay(this.props.delay)
-              .attr('y', this.props.y)
-              .attr('height', this.props.height)
+        .duration(500)
+          .delay(this.props.delay)
+            .attr('y', this.props.y)
+            .attr('height', this.props.height)
+
     }
   
     render() {

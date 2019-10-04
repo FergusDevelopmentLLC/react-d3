@@ -1,34 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ScatterPlot } from './Components/ScatterPlot/ScatterPlot';
-import { BarPlot } from './Components/BarPlot/BarPlot';
-import { scatterData } from './Data/data';
-import { barData } from './Data/data';
-
-const App = () => {
-  return (
-    <div>
-      <div>
-        <ScatterPlot
-          data={scatterData()}
-          svgWidth={960 / 2}
-          svgHeight={460 / 2}
-          fireDelay={1}
-          dotRadius={1}
-        />
-      </div>
-
-      <div>
-        <BarPlot
-          data={barData()}
-          svgWidth={960 / 2}
-          svgHeight={460 / 2}
-          fireDelay={25}
-        />
-      </div>
-    </div>
-  )
-}
+import {App} from './Components/App/App';
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
