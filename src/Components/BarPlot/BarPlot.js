@@ -4,19 +4,22 @@ import { AxisBarBottom } from '../Axis/AxisBarBottom';
 import { AxisLeft } from '../Axis/AxisLeft';
 import Bar from './Bar';
 
-const margin = { top: 20, right: 20, bottom: 20, left: 50 }
-
 export const BarPlot = ({ 
   data, 
   svgWidth, 
   svgHeight, 
   fireDelay,
-  onBarSelect
+  onBarSelect,
+  tiltXLabels = false
 }) => {
 
   if (!data) {
     return <pre>Loading...</pre>
   }
+
+  let bottomMargin = 20
+  if(tiltXLabels) bottomMargin = 50
+  const margin = { top: 20, right: 20, bottom: bottomMargin, left: 50 }
 
   let dataset = data
 
@@ -61,6 +64,7 @@ export const BarPlot = ({
           tickWidth={5}
           xScale={xScale}
           types={data.map(a => a.type)}
+          tiltXLabels={tiltXLabels}
         />
       </g>
     </svg>

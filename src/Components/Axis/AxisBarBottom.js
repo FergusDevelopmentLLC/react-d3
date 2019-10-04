@@ -4,7 +4,8 @@ export const AxisBarBottom = ({
     chartHeight,
     chartWidth,
     tickWidth,
-    types
+    types,
+    tiltXLabels = false
   }) => {
     return (
       <g>
@@ -41,14 +42,30 @@ export const AxisBarBottom = ({
                 y2={tickWidth}
                 stroke="#000000"
               />
-              <text
-                style={{ textAnchor: 'middle' }}
-                y={tickWidth + 10}
-                fontFamily="Arial, Helvetica, sans-serif"
-                fontSize="10"
-              >
-                {type.toLocaleString()}
-              </text>
+              {
+                tiltXLabels
+                ?
+                <text
+                  transform="rotate(50)"
+                  style={{ textAnchor: 'start' }}
+                  y={tickWidth + 7}
+                  x={tickWidth - 1}
+                  fontFamily="Arial, Helvetica, sans-serif"
+                  fontSize="10"
+                >
+                  {type.toLocaleString()}
+                </text>
+                :
+                <text
+                  style={{ textAnchor: 'middle' }}
+                  y={tickWidth + 10}
+                  fontFamily="Arial, Helvetica, sans-serif"
+                  fontSize="10"
+                >
+                  {type.toLocaleString()}
+                </text>
+
+              }
             </g>
           ))
         }

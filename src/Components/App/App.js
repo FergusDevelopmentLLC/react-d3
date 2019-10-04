@@ -28,6 +28,7 @@ export const App = () => {
           svgWidth={960 / 2}
           svgHeight={460 / 2}
           fireDelay={25}
+          tiltXLabels={true}
           onBarSelect={setSelectedBarId}
         />
       </div>
