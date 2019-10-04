@@ -11,8 +11,8 @@ export const App = () => {
 
   return (
     <div>
-      <div>{selectedBarId}</div>
-      <div>
+      
+      {/* <div>
         <ScatterPlot
           data={scatterData()}
           svgWidth={960 / 2}
@@ -20,7 +20,7 @@ export const App = () => {
           fireDelay={1}
           dotRadius={1}
         />
-      </div>
+      </div> */}
 
       <div>
         <BarPlot
@@ -31,7 +31,7 @@ export const App = () => {
           onBarSelect={setSelectedBarId}
         />
       </div>
+      <div>{selectedBarId}</div>
     </div>
-    
   )
 }
