@@ -23,20 +23,6 @@ export const ScatterPlot = ({ data, svgWidth, svgHeight, fireDelay, dotRadius })
     <svg width={svgWidth} height={svgHeight}>
       <g transform={`translate(${margin.left},${margin.top})`}>
 
-        <AxisLeft
-          yScale={yScale}
-          chartHeight={chartHeight}
-          chartWidth={chartWidth}
-          tickWidth={5}
-        />
-
-        <AxisBottom
-          xScale={xScale}
-          chartHeight={chartHeight}
-          chartWidth={chartWidth}
-          tickWidth={5}
-        />
-
         {data.map((d, i) => (
           <React.Fragment key={`frag${d.n}`}>
             <MarkFunc
@@ -61,6 +47,20 @@ export const ScatterPlot = ({ data, svgWidth, svgHeight, fireDelay, dotRadius })
             />
           </React.Fragment>
         ))}
+
+        <AxisLeft
+          yScale={yScale}
+          chartHeight={chartHeight}
+          chartWidth={chartWidth}
+          tickWidth={5}
+        />
+
+        <AxisBottom
+          xScale={xScale}
+          chartHeight={chartHeight}
+          chartWidth={chartWidth}
+          tickWidth={5}
+        />
       </g>
     </svg>
   );

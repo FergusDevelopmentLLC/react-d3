@@ -25,15 +25,6 @@ export const AxisLeft = ({
             stroke="#000000"
           />
         </g>
-        <g>
-          <line
-            x1={chartWidth}
-            y1={chartHeight}
-            x2={chartWidth}
-            y2={chartHeight + tickWidth}
-            stroke="#000000"
-          />
-        </g>      
         {yScale.ticks().map(tickValue => (
           <g className="tick" transform={`translate(0,${yScale(tickValue)})`} key={`g${tickValue}`}>
             <line

@@ -1,9 +1,10 @@
 import React from "react";
-export const AxisBottom = ({
+export const AxisBarBottom = ({
     xScale,
     chartHeight,
     chartWidth,
-    tickWidth
+    tickWidth,
+    types
   }) => {
     return (
       <g>
@@ -26,14 +27,14 @@ export const AxisBottom = ({
           />
         </g>
         {
-          xScale.ticks().map(tickValue => (
+          types.map(type => (
             <g
               className="tick"
-              key={tickValue}
-              transform={`translate(${xScale(tickValue)},${chartHeight})`}
+              key={type}
+              transform={`translate(${xScale(type) + (xScale.bandwidth() / 2)},${chartHeight})`}
             >
               <line
-                key={`line${tickValue}`}
+                key={`line${type}`}
                 x1={0}
                 y1={0}
                 x2={0}
@@ -46,7 +47,7 @@ export const AxisBottom = ({
                 fontFamily="Arial, Helvetica, sans-serif"
                 fontSize="10"
               >
-                {tickValue.toLocaleString()}
+                {type.toLocaleString()}
               </text>
             </g>
           ))

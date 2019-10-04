@@ -40,9 +40,14 @@ export const barData = () => {
   
   useEffect(() => {
     let barData = [
-      {"type":"Apples","count":1453},
-      {"type":"Oranges","count":3638},
-      {"type":"Pears","count":6963}
+      {"type":"Apples","count":50},
+      {"type":"Oranges","count":30},
+      {"type":"Pears","count":70},
+      {"type":"Bananas","count":50},
+      {"type":"Lemons","count":90},
+      {"type":"Olives","count":50},
+      {"type":"Avocados","count":60},
+      {"type":"Grapes","count":120}
     ]
     setBarData(barData)
   }, []);
@@ -50,11 +55,3 @@ export const barData = () => {
   return barData;
 };
 
-// {"type":"Apples","count":5},
-// {"type":"Oranges","count":3},
-// {"type":"Pears","count":7},
-// {"type":"Bananas","count":5},
-// {"type":"Tangerines","count":9},
-// {"type":"Strawberries","count":5},
-// {"type":"Avocados","count":6},
-// {"type":"Eggs","count":12}

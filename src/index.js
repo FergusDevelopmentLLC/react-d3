@@ -18,7 +18,7 @@ const App = () => {
           dotRadius={1}
         />
       </div>
-      
+
       <div>
         <BarPlot
           data={barData()}

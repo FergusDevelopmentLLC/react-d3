@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-// import { AxisBottom } from './AxisBottom';
+import { AxisBarBottom } from './AxisBarBottom';
 import { AxisLeft } from './AxisLeft';
 import Bar from './Bar';
 
@@ -25,12 +25,25 @@ export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
     y1.domain([0, countMax])
 
     const yScale = d3.scaleLinear().range([0, chartHeight]).domain([countMax, 0]);
-    const colorScale = d3.scaleLinear().domain([countMax, 0]).range(['#e5f5f9', '#006d2c'])
+    const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#e5f5f9', '#006d2c'])
 
     return (
       <svg width={svgWidth} height={svgHeight}>
         <g transform={`translate(${margin.left},${margin.top})`}>
-  
+          {data.map((d, i) => (
+            <React.Fragment key={`barFrag${d.type}`}>
+              <Bar
+                x={x1(d.type)}
+                y={yScale(d.count)}
+                delay={i * fireDelay}
+                width={x1.bandwidth()}
+                height={chartHeight - yScale(d.count)}
+                color={colorScale(d.count)}
+                chartHeight={chartHeight}
+              />
+            </React.Fragment>
+          ))}
+          
           <AxisLeft
             yScale={yScale}
             chartHeight={chartHeight}
@@ -38,26 +51,13 @@ export const BarPlot = ({ data, svgWidth, svgHeight, fireDelay }) => {
             tickWidth={5}
           />
   
-          {/* <AxisBottom
-            xScale={xScale}
+          <AxisBarBottom
             chartHeight={chartHeight}
             chartWidth={chartWidth}
             tickWidth={5}
-          /> */}
-  
-          {data.map((d, i) => (
-            <React.Fragment key={`barFrag${d.type}`}>
-              <Bar
-                x={x1(d.type)}
-                y={chartHeight - yScale(d.count)}
-                delay={i * fireDelay}
-                width={x1.bandwidth()}
-                height={yScale(d.count)}
-                color={colorScale(d.count)}
-                chartHeight={chartHeight}
-              />
-            </React.Fragment>
-          ))}
+            xScale={x1}
+            types = {data.map(a => a.type)}
+          />
         </g>
       </svg>
     );
