@@ -7,7 +7,7 @@ export const AxisLeft = ({
   }) => {
     return (
       <g>
-        <g>
+        {/* <g>
           <line
             x1={0}
             y1={1}
@@ -15,7 +15,7 @@ export const AxisLeft = ({
             y2={1}
             stroke="#000000"
           />
-        </g>
+        </g> */}
         <g>
           <line
             x1={0}

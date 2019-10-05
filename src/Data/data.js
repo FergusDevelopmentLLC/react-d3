@@ -92,3 +92,7 @@ export const get_oregon_county_pop = () => {
 
   return (returnArray)
 }
+
+export const get_oregon_county_pop_geo = () => {
+  return (oregon_county_pop)
+}

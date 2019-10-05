@@ -16,15 +16,6 @@ export const AxisBottom = ({
             stroke="#000000"
           />
         </g>
-        <g>
-          <line
-            x1={chartWidth}
-            y1={chartHeight}
-            x2={chartWidth}
-            y2={chartHeight + tickWidth}
-            stroke="#000000"
-          />
-        </g>
         {
           xScale.ticks().map(tickValue => (
             <g
