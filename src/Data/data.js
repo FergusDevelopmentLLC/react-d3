@@ -80,7 +80,7 @@ export const get_oregon_county_pop = () => {
     let returnItem = {}
     returnItem.id = f.properties.geoid
     returnItem.type = f.properties.name
-    returnItem.count = f.properties.population
+    returnItem.count = f.properties.popsqmi
     returnArray.push(returnItem)
   }
 
@@ -89,6 +89,8 @@ export const get_oregon_county_pop = () => {
   })
 
   returnArray.reverse()
+  
+  returnArray = returnArray.slice(0, 15)
 
   return (returnArray)
 }

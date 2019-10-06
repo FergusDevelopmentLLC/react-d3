@@ -48,7 +48,23 @@ const MapboxGLMap = ({data, selectedBarId}) => {
           type: 'geojson',
           data
         });
-  
+        
+        map.addLayer({
+          id: 'counties-solid-fill',
+          source: 'counties',
+          type: 'fill',
+          paint: {
+            'fill-color':  [
+              "interpolate",
+              ["linear"],
+              ["get", "popsqmi"],
+              0, '#ffffff',
+              120, '#fa9fb5',
+              1883.18451322655, '#7a0177'
+              ]
+          }
+        });
+
         map.addLayer({
           id: 'counties-fill',
           source: 'counties',

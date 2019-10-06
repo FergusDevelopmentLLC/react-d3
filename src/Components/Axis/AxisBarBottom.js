@@ -3,7 +3,6 @@ export const AxisBarBottom = ({
     xScale,
     chartHeight,
     chartWidth,
-    tickWidth,
     types,
     tiltXLabels = false
   }) => {
@@ -30,7 +29,7 @@ export const AxisBarBottom = ({
                 x1={0}
                 y1={0}
                 x2={0}
-                y2={tickWidth}
+                y2={chartWidth * .012}
                 stroke="#000000"
               />
               {
@@ -39,19 +38,19 @@ export const AxisBarBottom = ({
                 <text
                   transform="rotate(50)"
                   style={{ textAnchor: 'start' }}
-                  y={tickWidth + 7}
-                  x={tickWidth - 1}
+                  y={(chartWidth * .040)}
+                  x={0}
                   fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize="10"
+                  fontSize={chartWidth * .025}
                 >
                   {type.toLocaleString()}
                 </text>
                 :
                 <text
                   style={{ textAnchor: 'middle' }}
-                  y={tickWidth + 10}
+                  y={(chartWidth * .04)}
                   fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize="10"
+                  fontSize={chartWidth * .025}
                 >
                   {type.toLocaleString()}
                 </text>

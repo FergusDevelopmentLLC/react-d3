@@ -27,10 +27,11 @@ export const BarPlot = ({
   const chartHeight = svgHeight - margin.top - margin.bottom
 
   const countMax = dataset.reduce((max, p) => (p.count > max ? p.count : max), dataset[0].count)
-
+  console.log('countMax', countMax)
+  
   const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(dataset.map((d) => d.type))
   const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax])
-  const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#fa9fb5', '#7a0177'])
+  const colorScale = d3.scaleLinear().domain([0, 120, countMax]).range(['#fa9fb5', '#fa9fb5' , '#7a0177'])
   //const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#006d2c', '#006d2c'])
 
   return (
