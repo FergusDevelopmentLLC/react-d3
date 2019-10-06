@@ -12,6 +12,16 @@ const styles = {
 
 const MapboxGLMap = ({data, selectedBarId}) => {
 
+  const hexToRgb = (hex) => {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+
+  
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
   
@@ -48,7 +58,6 @@ const MapboxGLMap = ({data, selectedBarId}) => {
           type: 'geojson',
           data
         });
-        
         map.addLayer({
           id: 'counties-solid-fill',
           source: 'counties',
@@ -58,9 +67,9 @@ const MapboxGLMap = ({data, selectedBarId}) => {
               "interpolate",
               ["linear"],
               ["get", "popsqmi"],
-              0, '#ffffff',
-              120, '#fa9fb5',
-              1883.18451322655, '#7a0177'
+              0, `rgba(${hexToRgb('#ffffff').r},${hexToRgb('#ffffff').g},${hexToRgb('#ffffff').b},0)`,
+              120, `rgba(${hexToRgb('#fa9fb5').r},${hexToRgb('#fa9fb5').g},${hexToRgb('#fa9fb5').b},.7)`,
+              1883.18451322655, `rgba(${hexToRgb('#7a0177').r},${hexToRgb('#7a0177').g},${hexToRgb('#7a0177').b},.8)`
               ]
           }
         });
