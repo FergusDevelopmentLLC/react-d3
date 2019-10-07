@@ -4,7 +4,6 @@ export const AxisBarBottom = ({
     chartHeight,
     chartWidth,
     types,
-    onBarSelect,
     tiltXLabels = false
   }) => {
     return (

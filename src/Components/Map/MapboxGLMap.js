@@ -10,7 +10,12 @@ const styles = {
   position: "absolute"
 };
 
-const MapboxGLMap = ({data, selectedBarId}) => {
+const MapboxGLMap = ({
+  data,
+  selectedBarId,
+  colorBreaks
+}
+) => {
 
   const hexToRgb = (hex) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -21,7 +26,6 @@ const MapboxGLMap = ({data, selectedBarId}) => {
     } : null;
   }
 
-  
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
   
@@ -58,19 +62,22 @@ const MapboxGLMap = ({data, selectedBarId}) => {
           type: 'geojson',
           data
         });
+
+        let fc = []
+        fc.push('step')
+        fc.push(['get', 'popsqmi'])
+        fc.push('rgba(0,0,0,0)')
+        for(let colorBreak of colorBreaks) {
+          fc.push(colorBreak.break)
+          fc.push(`rgba(${colorBreak.rgb[0]}, ${colorBreak.rgb[1]}, ${colorBreak.rgb[2]},${colorBreak.rgb[3]})`)
+        }
+        
         map.addLayer({
           id: 'counties-solid-fill',
           source: 'counties',
           type: 'fill',
           paint: {
-            'fill-color':  [
-              "interpolate",
-              ["linear"],
-              ["get", "popsqmi"],
-              0, `rgba(${hexToRgb('#ffffff').r},${hexToRgb('#ffffff').g},${hexToRgb('#ffffff').b},0)`,
-              120, `rgba(${hexToRgb('#fa9fb5').r},${hexToRgb('#fa9fb5').g},${hexToRgb('#fa9fb5').b},.7)`,
-              1883.18451322655, `rgba(${hexToRgb('#7a0177').r},${hexToRgb('#7a0177').g},${hexToRgb('#7a0177').b},.8)`
-              ]
+            'fill-color': fc
           }
         });
 
