@@ -4,6 +4,15 @@ import { AxisLeft } from '../Axis/AxisLeft';
 import { AxisBarBottom } from './AxisBarBottom';
 import Bar from './Bar';
 
+const styles = {
+  position: "absolute",
+  zIndex: 1000,
+  backgroundColor: 'white',
+  top: "calc(100vh - 320px)",
+  right: "20px",
+  border: "1px solid gray"
+};
+
 export const BarPlot = ({ 
   data, 
   svgWidth, 
@@ -11,16 +20,17 @@ export const BarPlot = ({
   fireDelay,
   onBarSelect,
   colorBreaks,
-  tiltXLabels = false
+  tiltXLabels = false,
+  title = "Hey"
 }) => {
 
   if (!data) {
     return <pre>Loading...</pre>
   }
 
-  let bottomMargin = 20
-  if(tiltXLabels) bottomMargin = 50
-  const margin = { top: 20, right: 20, bottom: bottomMargin, left: 50 }
+  let bottomMargin = 50
+  if(tiltXLabels) bottomMargin = 65
+  const margin = { top: 40, right: 10, bottom: bottomMargin, left: 60 }
 
   let dataset = data
 
@@ -45,8 +55,21 @@ export const BarPlot = ({
   const minHeight = 2.5
 
   return (
-    <svg width={svgWidth} height={svgHeight}>
+    <svg width={svgWidth} height={svgHeight} style={styles}>
+      <g>
+          <text
+            style={{ textAnchor: 'middle' }}
+            fontFamily="Arial, Helvetica, sans-serif"
+            fontSize={chartWidth * .045}
+            x={(svgWidth / 2)}
+            y={(25)}
+            >
+              {"Oregon County Population Density"}
+            </text>
+        </g>
       <g transform={`translate(${margin.left},${margin.top})`}>
+        
+
         {data.map((d, i) => (
           <React.Fragment key={`barFrag${d.type}`}>
             <Bar
@@ -68,6 +91,7 @@ export const BarPlot = ({
           chartHeight={chartHeight}
           chartWidth={chartWidth}
           tickWidth={5}
+          yAxisTitle={"Persons per square mile"}
         />
 
         <AxisBarBottom
@@ -78,6 +102,7 @@ export const BarPlot = ({
           types={data.map(a => a.type)}
           onBarSelect={onBarSelect}
           tiltXLabels={tiltXLabels}
+          xAxisTitle={"County"}
         />
       </g>
     </svg>

@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+//width: "calc(100vw - 500px)",
 const styles = {
-  width: "calc(100vw - 500px)",
+  width: "100vw",
   height: "100vh",
   top:0,
-  left:"500px",
+  left:"0",
   position: "absolute"
 };
 
@@ -34,9 +35,10 @@ const MapboxGLMap = ({
     const initializeMap = ({ setMap, mapContainer }) => {
 
       // get bounding box: http://bboxfinder.com
-      let mapBounds = [-125.211182,41.713930,-115.927734,46.5437501];//Southwest corner, Northeast corner
+      let mapBounds = [-127.792969,41.705729,-115.982666,48.690960];//Southwest corner, Northeast corner
 
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw';
+      //[(mapBounds[0] + mapBounds[2]) / 2, (mapBounds[1] + mapBounds[3]) / 2]
 
       // let basemap = 'basic';
       // let basemap = 'streets';
@@ -48,8 +50,8 @@ const MapboxGLMap = ({
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         style: `mapbox://styles/mapbox/${basemap}-v9`,
-        center: [(mapBounds[0] + mapBounds[2]) / 2, (mapBounds[1] + mapBounds[3]) / 2],
-        zoom: 6.6
+        center: [-120.39680257156749, 44.11448794998742],
+        zoom: 6.40730998826903
       });
 
       map.on("load", () => {
@@ -81,23 +83,36 @@ const MapboxGLMap = ({
           }
         });
 
-        map.addLayer({
-          id: 'counties-fill',
-          source: 'counties',
-          type: 'fill',
-          paint: {
-            'fill-color': 'rgba(0,0,0,0)'
-          }
-        });
-        
+        // layout: {
+        //   'line-join': 'round',
+        //   'line-round-limit': 5,
+        //   'line-miter-limit': 0
+        // },
+
         map.addLayer({
           id: 'counties',
           source: 'counties',
           type: 'line',
           paint: {
-            'line-color': 'gray'
+            'line-color': '#92887f',
           }
         });
+
+        map.addLayer({
+          id: 'county-highlight',
+          source: 'counties',
+          type: 'line',
+          paint: {
+            'line-color': 'rgba(255,102,0,0)',
+            'line-width': 4,
+            'line-dasharray': [1,1]
+          }
+        });
+        
+        map.on('moveend', () => {
+          console.log(map.getZoom())
+          console.log(map.getCenter())
+        })
 
       });
     };
@@ -108,15 +123,15 @@ const MapboxGLMap = ({
 
     if(map) {
       if(selectedBarId) {
-        map.setPaintProperty('counties-fill', 'fill-color', [
+        map.setPaintProperty('county-highlight', 'line-color', [
           'case',
           ['==', ['get', 'geoid'], selectedBarId],
-          '#b84e95',
+          'rgba(255,102,0,1)',
           'rgba(0,0,0,0)'
         ]);
       }
       else {
-        map.setPaintProperty('counties-fill', 'fill-color', 'rgba(0,0,0,0)');
+        map.setPaintProperty('county-highlight', 'line-color', 'rgba(0,0,0,0)');
       }
     }
 
@@ -124,5 +139,6 @@ const MapboxGLMap = ({
 
   return <div ref={el => (mapContainer.current = el)} style={styles} />;
 };
+
 
 export default MapboxGLMap;

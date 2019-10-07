@@ -3,7 +3,8 @@ export const AxisLeft = ({
     yScale, 
     chartHeight, 
     chartWidth, 
-    tickWidth 
+    tickWidth,
+    yAxisTitle = "title"
   }) => {
     return (
       <g>
@@ -48,7 +49,20 @@ export const AxisLeft = ({
             </text>
           </g>
         ))}
+        <g>
+          <text
+            transform={`rotate(-90, -45, ${chartHeight / 2})`}
+            style={{ textAnchor: 'middle' }}
+            fontFamily="Arial, Helvetica, sans-serif"
+            fontSize={chartWidth * .035}
+            x={-45}
+            y={(chartHeight / 2)}
+            >
+              {yAxisTitle}
+            </text>
+        </g>
       </g>
+      
     );
   };
   

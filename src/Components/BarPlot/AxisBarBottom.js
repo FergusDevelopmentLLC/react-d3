@@ -4,7 +4,8 @@ export const AxisBarBottom = ({
     chartHeight,
     chartWidth,
     types,
-    tiltXLabels = false
+    tiltXLabels = false,
+    xAxisTitle = "title"
   }) => {
     return (
       <g>
@@ -36,12 +37,12 @@ export const AxisBarBottom = ({
                 tiltXLabels
                 ?
                 <text
-                  transform="rotate(45)"
+                  transform="rotate(45, -5, 10)"
                   style={{ textAnchor: 'start' }}
-                  y={15}
-                  x={0}
+                  y={10}
+                  x={-5}
                   fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize={chartWidth * .025}
+                  fontSize={chartWidth * .03}
                 >
                   {type}
                 </text>
@@ -59,7 +60,19 @@ export const AxisBarBottom = ({
             </g>
           ))
         }
+      <g>
+        <text
+          style={{ textAnchor: 'middle' }}
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontSize={chartWidth * .035}
+          x={(chartWidth / 2)}
+          y={(chartHeight + 55)}
+          >
+            {xAxisTitle}
+          </text>
       </g>
+      </g>
+      
     );
   };
   
