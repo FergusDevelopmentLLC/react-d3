@@ -27,12 +27,40 @@ export const BarPlot = ({
   const chartHeight = svgHeight - margin.top - margin.bottom
 
   const countMax = dataset.reduce((max, p) => (p.count > max ? p.count : max), dataset[0].count)
-  console.log('countMax', countMax)
   
+  let colorBreaks = [
+    {
+      'rgb':[153,216,201],
+      'break': 0
+    },
+    {
+      'rgb':[102,194,164],
+      'break': 90
+    },
+    {
+      'rgb':[65,174,118],
+      'break': 150
+    },
+    {
+      'rgb':[35,139,69],
+      'break': 300
+    },
+    {
+      'rgb':[0,109,44],
+      'break': 850
+    }
+  ]
+
+  let barColors = []
+  for(let color of colorBreaks) {
+    barColors.push(`rgb(${color.rgb[0]},${color.rgb[1]},${color.rgb[2]})`)
+  }
+  
+  const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors)
   const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(dataset.map((d) => d.type))
-  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax])
-  const colorScale = d3.scaleLinear().domain([0, 120, countMax]).range(['#fa9fb5', '#fa9fb5' , '#7a0177'])
-  //const colorScale = d3.scaleLinear().domain([0, countMax]).range(['#006d2c', '#006d2c'])
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice()
+  
+  const minHeight = 2.5
 
   return (
     <svg width={svgWidth} height={svgHeight}>
@@ -42,10 +70,10 @@ export const BarPlot = ({
             <Bar
               id={d.id}
               x={xScale(d.type)}
-              y={yScale(d.count)}
+              y={(chartHeight - yScale(d.count)) > minHeight ? yScale(d.count) : chartHeight - minHeight}
               delay={i * fireDelay}
               width={xScale.bandwidth()}
-              height={chartHeight - yScale(d.count)}
+              height={(chartHeight - yScale(d.count)) > minHeight ? chartHeight - yScale(d.count) : minHeight}
               color={colorScale(d.count)}
               chartHeight={chartHeight}
               onBarSelect={onBarSelect}

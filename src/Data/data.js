@@ -90,7 +90,7 @@ export const get_oregon_county_pop = () => {
 
   returnArray.reverse()
   
-  returnArray = returnArray.slice(0, 15)
+  //returnArray = returnArray.slice(0, 15)
 
   return (returnArray)
 }
