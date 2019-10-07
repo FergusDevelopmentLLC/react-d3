@@ -1,7 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
-import { AxisBarBottom } from '../Axis/AxisBarBottom';
 import { AxisLeft } from '../Axis/AxisLeft';
+import { AxisBarBottom } from './AxisBarBottom';
 import Bar from './Bar';
 
 export const BarPlot = ({ 
@@ -94,6 +94,7 @@ export const BarPlot = ({
           tickWidth={5}
           xScale={xScale}
           types={data.map(a => a.type)}
+          onBarSelect={onBarSelect}
           tiltXLabels={tiltXLabels}
         />
       </g>
