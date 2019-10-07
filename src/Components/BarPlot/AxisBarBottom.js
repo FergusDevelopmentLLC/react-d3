@@ -38,10 +38,10 @@ export const AxisBarBottom = ({
                 <text
                   transform="rotate(45)"
                   style={{ textAnchor: 'start' }}
-                  y={12}
+                  y={15}
                   x={0}
                   fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize={chartWidth * .023}
+                  fontSize={chartWidth * .025}
                 >
                   {type}
                 </text>
