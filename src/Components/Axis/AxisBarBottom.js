@@ -36,14 +36,14 @@ export const AxisBarBottom = ({
                 tiltXLabels
                 ?
                 <text
-                  transform="rotate(50)"
+                  transform="rotate(45)"
                   style={{ textAnchor: 'start' }}
-                  y={(chartWidth * .040)}
+                  y={12}
                   x={0}
                   fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize={chartWidth * .025}
+                  fontSize={chartWidth * .023}
                 >
-                  {type.toLocaleString()}
+                  {type}
                 </text>
                 :
                 <text
