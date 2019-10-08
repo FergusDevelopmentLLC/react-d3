@@ -109,10 +109,10 @@ const MapboxGLMap = ({
           }
         });
         
-        map.on('moveend', () => {
-          console.log(map.getZoom())
-          console.log(map.getCenter())
-        })
+        // map.on('moveend', () => {
+        //   console.log(map.getZoom())
+        //   console.log(map.getCenter())
+        // })
 
       });
     };

@@ -1,4 +1,4 @@
-{
+export const oregon_county_pop = {
 "type": "FeatureCollection",
 "name": "oregon_county_pop",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
