@@ -1,4 +1,4 @@
-# react-d3
+# react-d3-mapbox
 
 https://codesandbox.io/s/w0hn6
 https://codesandbox.io/s/54y6s
