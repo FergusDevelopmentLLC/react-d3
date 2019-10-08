@@ -18,15 +18,6 @@ const MapboxGLMap = ({
 }
 ) => {
 
-  const hexToRgb = (hex) => {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  }
-
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
   
@@ -34,12 +25,8 @@ const MapboxGLMap = ({
     
     const initializeMap = ({ setMap, mapContainer }) => {
 
-      // get bounding box: http://bboxfinder.com
-      let mapBounds = [-127.792969,41.705729,-115.982666,48.690960];//Southwest corner, Northeast corner
-
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw';
-      //[(mapBounds[0] + mapBounds[2]) / 2, (mapBounds[1] + mapBounds[3]) / 2]
-
+      
       // let basemap = 'basic';
       // let basemap = 'streets';
       // let basemap = 'bright';
