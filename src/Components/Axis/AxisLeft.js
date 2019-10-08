@@ -1,14 +1,14 @@
 import React from "react";
-export const AxisLeft = ({ 
-    yScale, 
-    chartHeight, 
-    chartWidth, 
-    tickWidth,
-    yAxisTitle = "title"
-  }) => {
-    return (
-      <g>
-        {/* <g>
+export const AxisLeft = ({
+  yScale,
+  chartHeight,
+  chartWidth,
+  tickWidth,
+  yAxisTitle = "title"
+}) => {
+  return (
+    <g>
+      {/* <g>
           <line
             x1={0}
             y1={1}
@@ -17,52 +17,48 @@ export const AxisLeft = ({
             stroke="#000000"
           />
         </g> */}
-        <g>
+      <g>
+        <line x1={0} y1={0} x2={0} y2={chartHeight} stroke="#000000" />
+      </g>
+      {yScale.ticks().map(tickValue => (
+        <g
+          className="tick"
+          transform={`translate(0,${yScale(tickValue)})`}
+          key={`g${tickValue}`}
+        >
           <line
-            x1={0}
+            key={`line${tickValue}`}
+            x1={-tickWidth}
             y1={0}
             x2={0}
-            y2={chartHeight}
+            y2={0}
             stroke="#000000"
           />
-        </g>
-        {yScale.ticks().map(tickValue => (
-          <g className="tick" transform={`translate(0,${yScale(tickValue)})`} key={`g${tickValue}`}>
-            <line
-              key={`line${tickValue}`}
-              x1={-tickWidth}
-              y1={0}
-              x2={0}
-              y2={0}
-              stroke="#000000"
-            />
-            <text
-              key={tickValue}
-              style={{ textAnchor: 'end' }}
-              x={-tickWidth}
-              dy="4"
-              dx="-3"
-              fontFamily="Arial, Helvetica, sans-serif"
-              fontSize="10"
-            >
-              {tickValue.toLocaleString()}
-            </text>
-          </g>
-        ))}
-        <g>
           <text
-            transform={`rotate(-90, -45, ${chartHeight / 2})`}
-            style={{ textAnchor: 'middle' }}
+            key={tickValue}
+            style={{ textAnchor: "end" }}
+            x={-tickWidth}
+            dy="4"
+            dx="-3"
             fontFamily="Arial, Helvetica, sans-serif"
-            fontSize={chartWidth * .035}
-            x={-45}
-            y={(chartHeight / 2)}
-            >
-              {yAxisTitle}
-            </text>
+            fontSize="10"
+          >
+            {tickValue.toLocaleString()}
+          </text>
         </g>
+      ))}
+      <g>
+        <text
+          transform={`rotate(-90, -43, ${chartHeight / 2})`}
+          style={{ textAnchor: "middle" }}
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontSize={chartWidth * 0.035}
+          x={-43}
+          y={chartHeight / 2}
+        >
+          {yAxisTitle}
+        </text>
       </g>
-      
-    );
-  };
-  
+    </g>
+  );
+};
