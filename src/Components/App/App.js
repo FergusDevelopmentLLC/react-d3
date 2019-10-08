@@ -33,7 +33,7 @@ export const App = () => {
           data={get_oregon_county_pop()}
           svgWidth={450}
           svgHeight={275}
-          fireDelay={50}
+          fireDelay={150}
           onBarSelect={setSelectedBarId}
           colorBreaks={colorBreaks}
           tiltXLabels={true}

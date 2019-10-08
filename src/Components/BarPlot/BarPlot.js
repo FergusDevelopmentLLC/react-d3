@@ -77,7 +77,7 @@ export const BarPlot = ({
           x={svgWidth / 2}
           y={25}
         >
-          {"Oregon County Population Density"}
+          {"Top Oregon Counties by Population Density"}
         </text>
       </g>
       <g transform={`translate(${margin.left},${margin.top})`}>

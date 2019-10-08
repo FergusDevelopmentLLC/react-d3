@@ -12,14 +12,27 @@ class Bar extends Component {
 
       let el = d3.select(this.barRef.current);
       
+      el.on('click', () => {
+        this.props.onBarSelect(this.props.id)
+        el.style('stroke-width','5');
+        el.style('stroke-dasharray','5 2');
+        el.style('stroke','rgba(255,102,0,1)');
+        el.style('cursor','pointer');
+      })
+
       el.on('mouseover', () => {
         this.props.onBarSelect(this.props.id)
+        el.style('stroke-width','5');
+        el.style('stroke-dasharray','5 2');
+        el.style('stroke','rgba(255,102,0,1)');
+        el.style('cursor','pointer');
       })
 
       el.on('mouseout', () => {
         this.props.onBarSelect(null)
+        el.style('stroke-width',"0");
       })
-
+      
       el.transition()
         .duration(500)
           .delay(this.props.delay)
