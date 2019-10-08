@@ -6,14 +6,13 @@ import MapboxGLMap from '../Map/MapboxGLMap';
 
 export const App = () => {
 
-  const alpha = 0.6;
+  const alpha = .65;
   const colorBreaks = [
-    {'rgb':[229,245,224,alpha],'break': 0},
-    {'rgb':[199,233,192,alpha],'break': 25},
-    {'rgb':[161,217,155,alpha],'break': 90},
-    {'rgb':[116,196,118,alpha],'break': 150},
-    {'rgb':[65,171,93,alpha],'break': 300},
-    {'rgb':[35,139,69,alpha],'break': 850}
+    {'rgb':[161,217,155,alpha],'break': 0},
+    {'rgb':[116,196,118,alpha],'break': 90},
+    {'rgb':[65,171,93,alpha],'break': 150},
+    {'rgb':[35,139,69,alpha],'break': 300},
+    {'rgb':[0,90,50,alpha],'break': 850}
   ]
 
   const [selectedBarId, setSelectedBarId] = useState(null)

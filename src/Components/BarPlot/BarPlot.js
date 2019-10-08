@@ -21,7 +21,7 @@ export const BarPlot = ({
   onBarSelect,
   colorBreaks,
   tiltXLabels = false,
-  title = "Hey"
+  title = ""
 }) => {
 
   if (!data) {
