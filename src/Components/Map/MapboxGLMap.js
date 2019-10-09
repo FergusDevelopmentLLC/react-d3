@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const initializeMap = ({ setMap, mapContainer, data, colorBreaks, highlightColor }) => {
+const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor }) => {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw';
   
@@ -34,13 +34,20 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, highlightColor
       data
     });
 
-    let fc = []
-    fc.push('step')
-    fc.push(['get', 'popsqmi'])
-    fc.push('rgba(0,0,0,0)')
-    for(let colorBreak of colorBreaks) {
-      fc.push(colorBreak.break)
-      fc.push(`rgba(${colorBreak.rgb[0]}, ${colorBreak.rgb[1]}, ${colorBreak.rgb[2]},${colorBreak.rgb[3]})`)
+    let fc
+    
+    if(colorBreaks) {
+      fc = []
+      fc.push('step')
+      fc.push(['get', 'popsqmi'])
+      fc.push('rgba(0,0,0,0)')
+      for(let colorBreak of colorBreaks) {
+        fc.push(colorBreak.break)
+        fc.push(`rgba(${colorBreak.rgb[0]}, ${colorBreak.rgb[1]}, ${colorBreak.rgb[2]},${colorBreak.rgb[3]})`)
+      }  
+    }
+    else {
+      fc = 'rgba(0,0,0,0)'
     }
     
     map.addLayer({
@@ -57,7 +64,7 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, highlightColor
       source: 'aoi',
       type: 'line',
       paint: {
-        'line-color': '#92887f',
+        'line-color': aoiOutlineColor,
       }
     });
 
@@ -96,6 +103,7 @@ export const MapboxGLMap = ({
   selectedId,
   colorBreaks,
   geoUniqueIdName = 'geoid',
+  aoiOutlineColor = 'rgba(175,172,151,1)',
   highlightColor = 'rgba(255,102,0,1)'
 }) => {
 
@@ -104,7 +112,7 @@ export const MapboxGLMap = ({
   
   useEffect(() => {
     
-    if (!map) initializeMap({ setMap, mapContainer, data, colorBreaks, highlightColor })
+    if (!map) initializeMap({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor })
 
     if(map) {
       if (selectedId) {

@@ -52,7 +52,8 @@ export const App = () => {
           svgWidth={450}
           svgHeight={275}
           itemDelay={5}
-          dotRadius={1}
+          dotRadius={2}
+          dotColor={'rgba(0,0,0,1)'}
           onSelectItem={setSelectedId}
           tiltXLabels={false}
           visualizationTitle="ScatterPlot Test"

@@ -9,7 +9,7 @@ export const Mark = ({
   cy,
   itemDelay = 0,
   r = 1,
-  color = 'black',
+  color,
   onSelectItem,
   highlightColor = 'rgb(255,102,0)'
 }) => {

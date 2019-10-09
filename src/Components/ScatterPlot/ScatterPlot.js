@@ -17,7 +17,8 @@ export const ScatterPlot = ({
   data, 
   svgWidth, 
   svgHeight, 
-  itemDelay, 
+  itemDelay,
+  dotColor = 'rgba(0,0,0,1)', 
   dotRadius,
   tiltXLabels = false,
   visualizationTitle = "Visualization Title",
@@ -29,7 +30,7 @@ export const ScatterPlot = ({
   if (!data) {
     return <pre>Loading...</pre>
   }
-
+  
   const margin = { 
     left: `${svgWidth * 0.12}`,
     right: `${svgWidth * 0.06}`, 
@@ -69,6 +70,7 @@ export const ScatterPlot = ({
               itemDelay={i * itemDelay}
               r={dotRadius}
               onSelectItem={onSelectItem}
+              color={dotColor}
             />
           </React.Fragment>
         ))}
