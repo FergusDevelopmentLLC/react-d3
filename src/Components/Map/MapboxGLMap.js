@@ -38,8 +38,8 @@ const MapboxGLMap = ({
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         style: `mapbox://styles/mapbox/${basemap}-v9`,
-        center: [-120.39680257156749, 44.11448794998742],
-        zoom: 6.40730998826903
+        center: [-118.00524865661339, 44.11285727537202],
+        zoom: 6.095537544838289
       });
 
       map.on("load", () => {
@@ -97,10 +97,10 @@ const MapboxGLMap = ({
           }
         });
         
-        // map.on('moveend', () => {
-        //   console.log(map.getZoom())
-        //   console.log(map.getCenter())
-        // })
+        map.on('moveend', () => {
+          console.log(map.getZoom())
+          console.log(map.getCenter())
+        })
 
       });
     };
