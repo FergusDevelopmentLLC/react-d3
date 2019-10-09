@@ -1,56 +1,67 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-class Bar extends Component {
+export const Bar = ({
+  id,
+  x,
+  y,
+  chartHeight,
+  width,
+  height,
+  color,
+  itemDelay = 0,
+  onSelectItem
+}) => {
 
-    constructor(props) {
-      super();
-      this.barRef = React.createRef();
-    }
-  
-    componentDidMount() {
+  const barRef = useRef(null);
 
-      let el = d3.select(this.barRef.current);
-      
-      el.on('click', () => {
-        this.props.onBarSelect(this.props.id)
-        el.style('stroke-width','5');
-        el.style('stroke-dasharray','5 2');
-        el.style('stroke','rgba(255,102,0,1)');
-        el.style('cursor','pointer');
-      })
+  useEffect(() => {
 
-      el.on('mouseover', () => {
-        this.props.onBarSelect(this.props.id)
-        el.style('stroke-width','5');
-        el.style('stroke-dasharray','5 2');
-        el.style('stroke','rgba(255,102,0,1)');
-        el.style('cursor','pointer');
-      })
+    let el = d3.select(barRef.current)
 
-      el.on('mouseout', () => {
-        this.props.onBarSelect(null)
-        el.style('stroke-width',"0");
-      })
-      
+    if(itemDelay > 0) {
       el.transition()
         .duration(500)
-          .delay(this.props.delay)
-            .attr('y', this.props.y)
-            .attr('height', this.props.height)
+          .delay(itemDelay)
+            .attr('y', y)
+            .attr('height', height)
+    }
+    else {
+      el.attr('y', y).attr('height', height)
+    }
+    
+    if(onSelectItem) {
+      el.on('mouseover', () => {
+        onSelectItem(id)
+        el.style('stroke-width','5');
+        el.style('stroke-dasharray','5 2');
+        el.style('stroke','rgba(255,102,0,1)');
+        el.style('cursor','pointer');
+      })
 
+      el.on('click', () => {
+        onSelectItem(id)
+        el.style('stroke-width','5');
+        el.style('stroke-dasharray','5 2');
+        el.style('stroke','rgba(255,102,0,1)');
+        el.style('cursor','pointer');
+      })
+      
+      el.on('mouseout', () => {
+        onSelectItem(null)
+        el.style('stroke-width',"0");
+      })
     }
-  
-    render() {
-        
-        return <rect
-                x={this.props.x} 
-                y={this.props.chartHeight} 
-                width={this.props.width} 
-                height={0} 
-                fill={this.props.color} 
-                ref={this.barRef} />
-    }
-  }
-  
-  export default Bar;
+
+  }, []);
+
+  return (
+    <rect
+      x={x}
+      y={chartHeight}
+      width={width}
+      height={0}
+      fill={color}
+      ref={barRef} />
+  )
+}

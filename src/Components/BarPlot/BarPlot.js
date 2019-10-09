@@ -2,7 +2,7 @@ import React from "react";
 import * as d3 from "d3";
 import { AxisLeft } from "../Axis/AxisLeft";
 import { AxisBarBottom } from "./AxisBarBottom";
-import Bar from "./Bar";
+import { Bar } from "./Bar";
 
 const styles = {
   position: "absolute",
@@ -18,7 +18,7 @@ export const BarPlot = ({
   svgWidth,
   svgHeight,
   fireDelay,
-  onBarSelect,
+  onSelectItem,
   colorBreaks,
   tiltXLabels = false,
   title = ""
@@ -82,7 +82,7 @@ export const BarPlot = ({
                   ? yScale(d.count)
                   : chartHeight - minHeight
               }
-              delay={i * fireDelay}
+              itemDelay={i * fireDelay}
               width={xScale.bandwidth()}
               height={
                 chartHeight - yScale(d.count) > minHeight
@@ -91,7 +91,7 @@ export const BarPlot = ({
               }
               color={colorScale(d.count)}
               chartHeight={chartHeight}
-              onBarSelect={onBarSelect}
+              onSelectItem={onSelectItem}
             />
           </React.Fragment>
         ))}
@@ -110,7 +110,6 @@ export const BarPlot = ({
           tickWidth={5}
           xScale={xScale}
           types={data.map(a => a.type)}
-          onBarSelect={onBarSelect}
           tiltXLabels={tiltXLabels}
           xAxisTitle={"County"}
         />

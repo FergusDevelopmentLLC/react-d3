@@ -38,7 +38,7 @@ export const App = () => {
           svgWidth={450}
           svgHeight={275}
           fireDelay={150}
-          onBarSelect={setSelectedId}
+          onSelectItem={setSelectedId}
           colorBreaks={colorBreaks}
           tiltXLabels={true}
         />
