@@ -30,14 +30,12 @@ export const ScatterPlot = ({
     return <pre>Loading...</pre>
   }
 
-  let bottomMargin = svgHeight * 0.12
-  if (tiltXLabels) bottomMargin = svgHeight * 0.20
-
-  let topMargin = svgHeight * 0.12
-  let leftMargin = svgWidth * 0.12
-  let rightMargin = svgWidth * 0.06
-
-  const margin = { top: topMargin, right: rightMargin, bottom: bottomMargin, left: leftMargin }
+  const margin = { 
+    left: `${svgWidth * 0.12}`,
+    right: `${svgWidth * 0.06}`, 
+    top: `${svgHeight * 0.12}`, 
+    bottom: `${tiltXLabels ? svgHeight * 0.20 : svgHeight * 0.15}`
+  }
 
   const chartWidth = svgWidth - margin.left - margin.right
   const chartHeight = svgHeight - margin.top - margin.bottom

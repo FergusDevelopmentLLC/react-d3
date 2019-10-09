@@ -62,7 +62,7 @@ export const AxisBottom = ({
           fontFamily='Arial, Helvetica, sans-serif'
           fontSize={chartWidth * 0.030}
           x={chartWidth / 2}
-          y={chartHeight + (chartHeight * 0.23)}
+          y={tiltXLabels ? chartHeight + (chartHeight * 0.23)  : chartHeight + (chartHeight * 0.17)}
           >
           {xAxisTitle}
         </text>

@@ -51,7 +51,7 @@ export const App = () => {
           itemDelay={5}
           dotRadius={1}
           onSelectItem={setSelectedId}
-          tiltXLabels={true}
+          tiltXLabels={false}
           visualizationTitle="ScatterPlot Test"
           leftAxisTitle="Custom Left Axis Label"
           bottomAxisTitle="Custom Bottom Axis Label"
