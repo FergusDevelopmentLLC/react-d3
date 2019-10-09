@@ -42,8 +42,8 @@ export const ScatterPlot = ({
   const chartWidth = svgWidth - margin.left - margin.right
   const chartHeight = svgHeight - margin.top - margin.bottom
 
-  const xScale = d3.scaleLinear().range([0, chartWidth]).domain([0, d3.max(data, d => +d.x)])
-  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, d3.max(data, d => +d.y)])
+  const xScale = d3.scaleLinear().range([0, chartWidth]).domain([0, d3.max(data, d => +d.x)]).nice();
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, d3.max(data, d => +d.y)]).nice();
   
   return (
     <svg width={svgWidth} height={svgHeight} style={styles}>
@@ -58,14 +58,15 @@ export const ScatterPlot = ({
           {visualizationTitle}
         </text>
       </g>
+      
       <g transform={`translate(${margin.left},${margin.top})`}>
         
         {data.map((d, i) => (
           <React.Fragment key={`frag${d.id}`}>
             <Mark
               id={d.id}
-              firePositionX={xScale(d3.max(data, d => +d.x) / 2)}
-              firePositionY={yScale(d3.max(data, d => +d.y) / 2)}
+              firePositionX={0}
+              firePositionY={chartHeight}
               cx={xScale(d.x)}
               cy={yScale(d.y)}
               itemDelay={i * itemDelay}

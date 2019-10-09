@@ -50,20 +50,11 @@ export const BarPlot = ({
 
   //barColors = ['red', 'blue', 'green', 'yellow', 'purple']
 
-  const colorScale = d3
-    .scaleThreshold()
-    .domain(colorBreaks.map(b => b.break))
-    .range(barColors);
-  const xScale = d3
-    .scaleBand()
-    .range([0, chartWidth])
-    .padding(0.1)
-    .domain(dataset.map(d => d.type));
-  const yScale = d3
-    .scaleLinear()
-    .range([chartHeight, 0])
-    .domain([0, countMax])
-    .nice();
+  const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors);
+
+  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(dataset.map(d => d.type));
+
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice();
 
   const minHeight = 2.5;
 

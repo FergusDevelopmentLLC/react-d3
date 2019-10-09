@@ -43,7 +43,7 @@ export const test_scatter_data = () => {
   let data = [];
   data.push({ x: 0, y: 1 });
   data.push({ y: 1, y: 1 });
-  for (let i = 2; i <= 850; i++) {
+  for (let i = 2; i <= 500; i++) {
     let s = {};
     s.x = i;
     let gcd = getGreatestCommonDenomOf(s.x, data[i - 1].y);

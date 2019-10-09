@@ -37,10 +37,13 @@ const MapboxGLMap = ({
 
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: `mapbox://styles/mapbox/${basemap}-v9`,
-        center: [-118.00524865661339, 44.11285727537202],
-        zoom: 6.095537544838289
+        style: `mapbox://styles/mapbox/${basemap}-v10`,
+        center: [-119.84663447003527, 43.862206138711855],
+        zoom: 5.839203767638953
       });
+
+      map.addControl(new mapboxgl.NavigationControl());
+      map.addControl(new mapboxgl.FullscreenControl());
 
       map.on("load", () => {
 
