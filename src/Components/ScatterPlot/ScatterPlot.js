@@ -62,9 +62,8 @@ export const ScatterPlot = ({
       <g transform={`translate(${margin.left},${margin.top})`}>
         
         {data.map((d, i) => (
-          <React.Fragment key={`frag${d.id}`}>
+          <React.Fragment key={`frag${i}`}>
             <Mark
-              id={d.id}
               firePositionX={0}
               firePositionY={chartHeight}
               cx={xScale(d.x)}
