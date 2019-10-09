@@ -1,49 +1,76 @@
 import React from "react";
 import * as d3 from "d3";
-import { AxisBottom } from '../Axis/AxisBottom';
-import { AxisLeft } from '../Axis/AxisLeft';
-import Mark from './Mark';
-import { MarkFunc } from './MarkFunc';
+import { AxisBottom } from './AxisBottom';
+import { AxisLeft } from './AxisLeft';
+import { Mark } from './Mark';
 
-const margin = { top: 20, right: 20, bottom: 20, left: 50 }
+const styles = {
+  position: "absolute",
+  zIndex: 2000,
+  backgroundColor: "white",
+  top: "calc(100vh - 620px)",
+  right: "20px",
+  border: "1px solid gray"
+};
 
-export const ScatterPlot = ({ data, svgWidth, svgHeight, fireDelay, dotRadius }) => {
+export const ScatterPlot = ({ 
+  data, 
+  svgWidth, 
+  svgHeight, 
+  itemDelay, 
+  dotRadius,
+  tiltXLabels = false,
+  visualizationTitle = "Visualization Title",
+  leftAxisTitle = "Left Axis Title",
+  bottomAxisTitle = "Bottom Axis Title",
+  onSelectItem
+}) => {
 
   if (!data) {
     return <pre>Loading...</pre>
   }
 
+  let bottomMargin = svgHeight * 0.12
+  if (tiltXLabels) bottomMargin = svgHeight * 0.20
+
+  let topMargin = svgHeight * 0.12
+  let leftMargin = svgWidth * 0.12
+  let rightMargin = svgWidth * 0.06
+
+  const margin = { top: topMargin, right: rightMargin, bottom: bottomMargin, left: leftMargin }
+
   const chartWidth = svgWidth - margin.left - margin.right
   const chartHeight = svgHeight - margin.top - margin.bottom
 
-  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, d3.max(data, d => +d.a)])
-  const xScale = d3.scaleLinear().range([0, chartWidth]).domain([0, d3.max(data, d => +d.n)])
-
+  const xScale = d3.scaleLinear().range([0, chartWidth]).domain([0, d3.max(data, d => +d.x)])
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, d3.max(data, d => +d.y)])
+  
   return (
-    <svg width={svgWidth} height={svgHeight}>
+    <svg width={svgWidth} height={svgHeight} style={styles}>
+      <g>
+        <text
+          style={{ textAnchor: "middle" }}
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontSize={chartWidth * 0.035}
+          x={svgWidth / 2}
+          y={svgHeight * 0.08}
+        >
+          {visualizationTitle}
+        </text>
+      </g>
       <g transform={`translate(${margin.left},${margin.top})`}>
-
+        
         {data.map((d, i) => (
-          <React.Fragment key={`frag${d.n}`}>
-            <MarkFunc
-              key={`markFunc${d.n}`}
-              firePositionX={xScale(d3.max(data, d => +d.n) / 2)}
-              firePositionY={yScale(d3.max(data, d => +d.a) / 2)}
-              cx={xScale(d.n)}
-              cy={yScale(d.a)}
-              delay={i * fireDelay}
-              r={dotRadius}
-              color={'red'}
-            />
+          <React.Fragment key={`frag${d.id}`}>
             <Mark
-              key={`mark${d.n}`}
-              firePositionX={xScale(d3.max(data, d => +d.n) / 2)}
-              firePositionY={yScale(d3.max(data, d => +d.a) / 2)}
-              cx={xScale(d.n)}
-              cy={yScale(d.a)}
-              delay={i * fireDelay}
+              id={d.id}
+              firePositionX={xScale(d3.max(data, d => +d.x) / 2)}
+              firePositionY={yScale(d3.max(data, d => +d.y) / 2)}
+              cx={xScale(d.x)}
+              cy={yScale(d.y)}
+              itemDelay={i * itemDelay}
               r={dotRadius}
-              color={'blue'}
+              onSelectItem={onSelectItem}
             />
           </React.Fragment>
         ))}
@@ -52,14 +79,15 @@ export const ScatterPlot = ({ data, svgWidth, svgHeight, fireDelay, dotRadius })
           yScale={yScale}
           chartHeight={chartHeight}
           chartWidth={chartWidth}
-          tickWidth={5}
+          yAxisTitle={leftAxisTitle}
         />
 
         <AxisBottom
           xScale={xScale}
           chartHeight={chartHeight}
           chartWidth={chartWidth}
-          tickWidth={5}
+          tiltXLabels={tiltXLabels}
+          xAxisTitle={bottomAxisTitle}
         />
       </g>
     </svg>

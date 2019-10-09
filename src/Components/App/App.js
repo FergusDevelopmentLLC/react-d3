@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { BarPlot } from "../BarPlot/BarPlot";
-import { get_oregon_county_pop } from "../../Data/data";
-import { get_oregon_county_pop_geo } from "../../Data/data";
+import { ScatterPlot } from "../ScatterPlot/ScatterPlot";
+import { oregon_county_pop_data } from "../../Data/data";
+import { oregon_county_pop_geo_data } from "../../Data/data";
+import { test_scatter_data } from "../../Data/data";
 import MapboxGLMap from "../Map/MapboxGLMap";
 
 export const App = () => {
@@ -17,26 +19,42 @@ export const App = () => {
     { rgb: [0, 90, 50, alpha], break: 850 }
   ];
 
-  const [selectedBarId, setSelectedBarId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  
+  //console.log('selectedId', selectedId)
 
   return (
     <div>
       <div>
         <MapboxGLMap
-          data={get_oregon_county_pop_geo()}
-          selectedBarId={selectedBarId}
+          data={oregon_county_pop_geo_data()}
+          selectedId={selectedId}
           colorBreaks={colorBreaks}
         />
       </div>
       <div>
         <BarPlot
-          data={get_oregon_county_pop()}
+          data={oregon_county_pop_data()}
           svgWidth={450}
           svgHeight={275}
           fireDelay={150}
-          onBarSelect={setSelectedBarId}
+          onBarSelect={setSelectedId}
           colorBreaks={colorBreaks}
           tiltXLabels={true}
+        />
+      </div>
+      <div>
+        <ScatterPlot
+          data={test_scatter_data()}
+          svgWidth={450}
+          svgHeight={275}
+          itemDelay={5}
+          dotRadius={1}
+          onSelectItem={setSelectedId}
+          tiltXLabels={true}
+          visualizationTitle="ScatterPlot Test"
+          leftAxisTitle="Custom Left Axis Label"
+          bottomAxisTitle="Custom Bottom Axis Label"
         />
       </div>
     </div>

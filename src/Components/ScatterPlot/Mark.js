@@ -1,26 +1,55 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-class Mark extends Component {
+export const Mark = ({
+  id,
+  firePositionX = 0,
+  firePositionY = 0,
+  cx,
+  cy,
+  itemDelay = 0,
+  r = 1,
+  color = 'black',
+  onSelectItem,
+  highlightColor = 'rgb(255,102,0)'
+}) => {
 
-  constructor(props) {
-    super();
-    this.circleRef = React.createRef();
-  }
+  const circleRef = useRef(null);
 
-  componentDidMount() {
-    let el = d3.select(this.circleRef.current);
-    el.attr("cy", this.props.firePositionY)
-      .attr("cx", this.props.firePositionX)
-      .transition()
-      .delay(this.props.delay)
-      .attr("cy", this.props.cy)
-      .attr("cx", this.props.cx)
-  }
+  useEffect(() => {
+    
+    let el = d3.select(circleRef.current)
 
-  render() {
-    return <circle r={this.props.r} ref={this.circleRef} fill={this.props.color} />;
-  }
+    if(itemDelay > 0) {
+      el.attr("cy", firePositionY)
+      .attr("cx", firePositionX)
+        .transition().delay(itemDelay)
+        	.attr("cy", cy)
+          .attr("cx", cx)
+    }
+    else {
+      el.attr("cy", cy).attr("cx", cx)
+    }
+
+    if(onSelectItem) {
+      el.on('mouseover', () => {
+        onSelectItem(id)
+        el.style('fill', highlightColor);
+        el.style('cursor','pointer');
+      })
+      el.on('mouseout', () => {
+        onSelectItem(null)
+        el.style('fill', color);
+      })
+    }
+
+  }, []);
+
+  return (
+    <circle 
+      r={r} 
+      fill={color} 
+      ref={circleRef} 
+    />
+  )
 }
-
-export default Mark;

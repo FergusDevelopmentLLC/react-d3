@@ -6,15 +6,16 @@ import "mapbox-gl/dist/mapbox-gl.css";
 const styles = {
   width: "100vw",
   height: "100vh",
-  top:0,
-  left:"0",
+  top: 0,
+  left: 0,
   position: "absolute"
 };
 
 const MapboxGLMap = ({
   data,
-  selectedBarId,
-  colorBreaks
+  selectedId,
+  colorBreaks,
+  highlightColor = 'rgb(255,102,0)'
 }
 ) => {
 
@@ -90,7 +91,7 @@ const MapboxGLMap = ({
           source: 'counties',
           type: 'line',
           paint: {
-            'line-color': 'rgba(255,102,0,0)',
+            'line-color': highlightColor,
             'line-width': 4,
             'line-dasharray': [1,1]
           }
@@ -109,20 +110,20 @@ const MapboxGLMap = ({
     }
 
     if(map) {
-      if(selectedBarId) {
+      if (selectedId) {
         map.setPaintProperty('county-highlight', 'line-color', [
           'case',
-          ['==', ['get', 'geoid'], selectedBarId],
-          'rgba(255,102,0,1)',
+          ['==', ['get', 'geoid'], selectedId],
+          highlightColor,
           'rgba(0,0,0,0)'
-        ]);
+        ])
       }
       else {
         map.setPaintProperty('county-highlight', 'line-color', 'rgba(0,0,0,0)');
       }
     }
 
-  }, [map, selectedBarId]);
+  }, [map, selectedId]);
 
   return <div ref={el => (mapContainer.current = el)} style={styles} />;
 };
