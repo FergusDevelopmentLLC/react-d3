@@ -43,7 +43,7 @@ export const Mark = ({
       })
     }
 
-  }, []);
+  }, [])
 
   return (
     <circle 
