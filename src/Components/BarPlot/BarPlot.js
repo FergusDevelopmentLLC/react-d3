@@ -1,7 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
-import { AxisLeft } from "../Axis/AxisLeft";
-import { AxisBarBottom } from "./AxisBarBottom";
+import { AxisLeft } from "./AxisLeft";
+import { AxisBottom } from "./AxisBottom";
 import { Bar } from "./Bar";
 
 const styles = {
@@ -17,30 +17,31 @@ export const BarPlot = ({
   data,
   svgWidth,
   svgHeight,
-  fireDelay,
-  onSelectItem,
+  itemDelay,
   colorBreaks,
   tiltXLabels = false,
-  title = ""
+  visualizationTitle = "Visualization Title",
+  leftAxisTitle = "Left Axis Title",
+  bottomAxisTitle = "Bottom Axis Title",
+  onSelectItem
 }) => {
+
   if (!data) {
     return <pre>Loading...</pre>;
   }
 
-  let bottomMargin = 50;
-  if (tiltXLabels) bottomMargin = 65;
-  const margin = { top: 40, right: 10, bottom: bottomMargin, left: 60 };
-
-  let dataset = data;
+  const margin = { 
+    left: `${svgWidth * 0.12}`,
+    right: `${svgWidth * 0.06}`, 
+    top: `${svgHeight * 0.12}`, 
+    bottom: `${tiltXLabels ? svgHeight * 0.25 : svgHeight * 0.15}`
+  }
 
   const chartWidth = svgWidth - margin.right - margin.left;
   const chartHeight = svgHeight - margin.top - margin.bottom;
 
-  const countMax = dataset.reduce(
-    (max, p) => (p.count > max ? p.count : max),
-    dataset[0].count
-  );
-
+  const countMax = d3.max(data.map(d => d.count))
+  
   let barColors = [];
   for (let color of colorBreaks) {
     barColors.push(`rgb(${color.rgb[0]},${color.rgb[1]},${color.rgb[2]},1)`);
@@ -48,11 +49,9 @@ export const BarPlot = ({
 
   colorBreaks = colorBreaks.slice(1, colorBreaks.length);
 
-  //barColors = ['red', 'blue', 'green', 'yellow', 'purple']
-
   const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors);
 
-  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(dataset.map(d => d.type));
+  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(data.map(d => d.type));
 
   const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice();
 
@@ -62,13 +61,13 @@ export const BarPlot = ({
     <svg width={svgWidth} height={svgHeight} style={styles}>
       <g>
         <text
-          style={{ textAnchor: "middle" }}
-          fontFamily="Arial, Helvetica, sans-serif"
-          fontSize={chartWidth * 0.041}
-          x={svgWidth / 2}
-          y={25}
-        >
-          {"Top Oregon Counties by Population Density"}
+            style={{ textAnchor: "middle" }}
+            fontFamily="Arial, Helvetica, sans-serif"
+            fontSize={chartWidth * 0.035}
+            x={svgWidth / 2}
+            y={svgHeight * 0.08}
+          >
+          {visualizationTitle}
         </text>
       </g>
       <g transform={`translate(${margin.left},${margin.top})`}>
@@ -77,18 +76,10 @@ export const BarPlot = ({
             <Bar
               id={d.id}
               x={xScale(d.type)}
-              y={
-                chartHeight - yScale(d.count) > minHeight
-                  ? yScale(d.count)
-                  : chartHeight - minHeight
-              }
-              itemDelay={i * fireDelay}
+              y={chartHeight - yScale(d.count) > minHeight ? yScale(d.count) : chartHeight - minHeight}
+              itemDelay={i * itemDelay}
               width={xScale.bandwidth()}
-              height={
-                chartHeight - yScale(d.count) > minHeight
-                  ? chartHeight - yScale(d.count)
-                  : minHeight
-              }
+              height={chartHeight - yScale(d.count) > minHeight ? chartHeight - yScale(d.count) : minHeight }
               color={colorScale(d.count)}
               chartHeight={chartHeight}
               onSelectItem={onSelectItem}
@@ -100,18 +91,17 @@ export const BarPlot = ({
           yScale={yScale}
           chartHeight={chartHeight}
           chartWidth={chartWidth}
-          tickWidth={5}
-          yAxisTitle={"Persons per square mile"}
+          yAxisTitle={leftAxisTitle}
         />
 
-        <AxisBarBottom
+        <AxisBottom
           chartHeight={chartHeight}
           chartWidth={chartWidth}
           tickWidth={5}
           xScale={xScale}
           types={data.map(a => a.type)}
           tiltXLabels={tiltXLabels}
-          xAxisTitle={"County"}
+          xAxisTitle={bottomAxisTitle}
         />
       </g>
     </svg>

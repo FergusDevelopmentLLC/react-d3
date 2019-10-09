@@ -1,5 +1,5 @@
 import React from "react";
-export const AxisBarBottom = ({
+export const AxisBottom = ({
   xScale,
   chartHeight,
   chartWidth,
@@ -58,12 +58,12 @@ export const AxisBarBottom = ({
       ))}
       <g>
         <text
-          style={{ textAnchor: "middle" }}
-          fontFamily="Arial, Helvetica, sans-serif"
-          fontSize={chartWidth * 0.035}
+          style={{ textAnchor: 'middle' }}
+          fontFamily='Arial, Helvetica, sans-serif'
+          fontSize={chartWidth * 0.030}
           x={chartWidth / 2}
-          y={chartHeight + 58}
-        >
+          y={tiltXLabels ? chartHeight + (chartHeight * 0.35)  : chartHeight + (chartHeight * 0.17)}
+          >
           {xAxisTitle}
         </text>
       </g>

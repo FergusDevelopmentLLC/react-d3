@@ -41,6 +41,9 @@ export const App = () => {
           onSelectItem={setSelectedId}
           colorBreaks={colorBreaks}
           tiltXLabels={true}
+          visualizationTitle="Oregon Counties Population Density"
+          leftAxisTitle="Persons Per Square Mile"
+          bottomAxisTitle="County"
         />
       </div>
       <div>
