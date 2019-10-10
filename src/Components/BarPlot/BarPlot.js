@@ -40,18 +40,19 @@ export const BarPlot = ({
   const chartWidth = svgWidth - margin.right - margin.left;
   const chartHeight = svgHeight - margin.top - margin.bottom;
 
-  const countMax = d3.max(data.map(d => d.count))
-  
-  let barColors = []
+  //reset the opacity of the breaks to 100% for the vis
   for (let color of colorBreaks) {
-    barColors.push(`rgb(${color.rgba[0]},${color.rgba[1]},${color.rgba[2]},1)`)
+    color['rgba'] = `rgba(${color.rgba[0]},${color.rgba[1]},${color.rgba[2]},1)`
   }
-  colorBreaks = colorBreaks.slice(1, colorBreaks.length)
 
-  //colorbars array should have 1 more than colorBreaks...
-  const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors)
+  //domain array length doesn't include 0 index 1 ... n, range array includes all elements 0 ... n
+  const colorScale = d3.scaleThreshold()
+    .domain(colorBreaks.map(b => b.break).slice(1, colorBreaks.length))
+    .range(colorBreaks.map(c => c.rgba))
 
   const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(data.map(d => d.type))
+  
+  const countMax = d3.max(data.map(d => d.count))
   const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice()
   
   const minHeight = 2.5//set a minHeight for a bar so that it is visible even if very small. Bad?
