@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { MapboxGLMap } from "../Map/MapboxGLMap";
-import { BarPlot } from "../BarPlot/BarPlot";
-import { ScatterPlot } from "../ScatterPlot/ScatterPlot";
-import { oregon_county_pop_data } from "../../Data/data";
-import { oregon_county_pop_geo_data } from "../../Data/data";
-import { test_scatter_data } from "../../Data/data";
+import { MapboxGLMap } from "./Components/Map/MapboxGLMap";
+import { BarPlot } from "./Components/BarPlot/BarPlot";
+import { ScatterPlot } from "./Components/ScatterPlot/ScatterPlot";
+import { oregon_county_pop_data } from "./Data/data";
+import { oregon_county_pop_geo_data } from "./Data/data";
+import { test_scatter_data } from "./Data/data";
 
 const color_breaks = () => {
   
