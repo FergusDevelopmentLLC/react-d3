@@ -42,20 +42,19 @@ export const BarPlot = ({
 
   const countMax = d3.max(data.map(d => d.count))
   
-  let barColors = [];
+  let barColors = []
   for (let color of colorBreaks) {
-    barColors.push(`rgb(${color.rgb[0]},${color.rgb[1]},${color.rgb[2]},1)`);
+    barColors.push(`rgb(${color.rgba[0]},${color.rgba[1]},${color.rgba[2]},1)`)
   }
+  colorBreaks = colorBreaks.slice(1, colorBreaks.length)
 
-  colorBreaks = colorBreaks.slice(1, colorBreaks.length);
+  //colorbars array should have 1 more than colorBreaks...
+  const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors)
 
-  const colorScale = d3.scaleThreshold().domain(colorBreaks.map(b => b.break)).range(barColors);
-
-  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(data.map(d => d.type));
-
-  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice();
-
-  const minHeight = 2.5;
+  const xScale = d3.scaleBand().range([0, chartWidth]).padding(0.1).domain(data.map(d => d.type))
+  const yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, countMax]).nice()
+  
+  const minHeight = 2.5//set a minHeight for a bar so that it is visible even if very small. Bad?
 
   return (
     <svg width={svgWidth} height={svgHeight} style={styles}>
@@ -105,5 +104,5 @@ export const BarPlot = ({
         />
       </g>
     </svg>
-  );
-};
+  )
+}

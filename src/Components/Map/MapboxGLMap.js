@@ -13,23 +13,23 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
   //let basemap = 'dark';
   // let basemap = 'satellite';
 
-  const map = new mapboxgl.Map({
+  const mapboxGlMap = new mapboxgl.Map({
     container: mapContainer.current,
     style: `mapbox://styles/mapbox/${basemap}-v10`,
     center: [-119.84663447003527, 43.862206138711855],
     zoom: 5.839203767638953
   })
 
-  map.addControl(new mapboxgl.NavigationControl())
-  map.addControl(new mapboxgl.FullscreenControl())
+  mapboxGlMap.addControl(new mapboxgl.NavigationControl())
+  mapboxGlMap.addControl(new mapboxgl.FullscreenControl())
 
-  map.on("load", () => {
+  mapboxGlMap.on("load", () => {
 
-    setMap(map)
+    setMap(mapboxGlMap)
     
-    map.resize()
+    mapboxGlMap.resize()
 
-    map.addSource('aoi', {
+    mapboxGlMap.addSource('aoi', {
       type: 'geojson',
       data
     })
@@ -43,14 +43,14 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
       fc.push('rgba(0,0,0,0)')
       for(let colorBreak of colorBreaks) {
         fc.push(colorBreak.break)
-        fc.push(`rgba(${colorBreak.rgb[0]}, ${colorBreak.rgb[1]}, ${colorBreak.rgb[2]},${colorBreak.rgb[3]})`)
+        fc.push(`rgba(${colorBreak.rgba[0]}, ${colorBreak.rgba[1]}, ${colorBreak.rgba[2]},${colorBreak.rgba[3]})`)
       }  
     }
     else {
       fc = 'rgba(0,0,0,0)'
     }
     
-    map.addLayer({
+    mapboxGlMap.addLayer({
       id: 'aoi-solid-fill',
       source: 'aoi',
       type: 'fill',
@@ -59,7 +59,7 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
       }
     })
 
-    map.addLayer({
+    mapboxGlMap.addLayer({
       id: 'aoi',
       source: 'aoi',
       type: 'line',
@@ -70,7 +70,7 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
 
     //lay down a transparent highlight line layer
     //by making alpha = 0
-    map.addLayer({
+    mapboxGlMap.addLayer({
       id: 'aoi-highlight',
       source: 'aoi',
       type: 'line',
