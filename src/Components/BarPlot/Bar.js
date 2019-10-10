@@ -27,8 +27,8 @@ export const Bar = ({
   onSelectItem
 }) => {
 
-  const barRef = useRef(null);
-
+  const barRef = useRef(null)
+  
   useEffect(() => {
 
     let el = d3.select(barRef.current)
@@ -41,33 +41,24 @@ export const Bar = ({
             .attr('height', height)
     }
     
-    if(onSelectItem) {
+    el.on('mouseover', () => {
+      onSelectItem(id)
+      setHighlight(el, true)
+    })
 
-      el.on('mouseover', () => {
-        onSelectItem(id)
-        setHighlight(el, true)
-      })
-
-      el.on('click', () => {
-        onSelectItem(id)
-        setHighlight(el, true)
-      })
-      
-      el.on('mouseout', () => {
-        onSelectItem(null)
-        setHighlight(el, false)
-      })
-    }
+    el.on('click', () => {
+      onSelectItem(id)
+      setHighlight(el, true)
+    })
+    
+    el.on('mouseout', () => {
+      onSelectItem(null)
+      setHighlight(el, false)
+    })
 
   }, []);
 
   return (
-    <rect
-      x={x}
-      y={itemDelay > 0 ? chartHeight : y}
-      width={width}
-      height={itemDelay > 0 ? 0 : height}
-      fill={color}
-      ref={barRef} />
+    <rect x={x} y={itemDelay > 0 ? chartHeight : y} width={width} height={itemDelay > 0 ? 0 : height} fill={color} ref={barRef} />
   )
 }
