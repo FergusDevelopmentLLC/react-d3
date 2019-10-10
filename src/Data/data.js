@@ -23,7 +23,6 @@ export const oregon_county_pop_data = () => {
 }
 
 export const oregon_county_pop_geo_data = () => {
-  console.log('oregon_county_pop', oregon_county_pop)
   return oregon_county_pop;
 }
 
