@@ -2,20 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+const styles = {
+  width: "100vw",//https://itnext.io/viewport-units-the-css-you-didnt-know-about-but-should-24b104483429
+  height: "100vh",
+  top: 0,
+  left: 0,
+  position: "absolute"
+}
+
 const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor }) => {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw'
   
-  // let basemap = 'basic';
-  // let basemap = 'streets';
-  // let basemap = 'bright';
-  let basemap = 'light'
-  //let basemap = 'dark';
-  // let basemap = 'satellite';
-
   const mapboxGlMap = new mapboxgl.Map({
     container: mapContainer.current,
-    style: `mapbox://styles/mapbox/${basemap}-v10`,
+    style: `mapbox://styles/mapbox/light-v10`,
     center: [-119.84663447003527, 43.862206138711855],
     zoom: 5.839203767638953
   })
@@ -84,15 +85,6 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
   })
 }
 
-//https://itnext.io/viewport-units-the-css-you-didnt-know-about-but-should-24b104483429
-const styles = {
-  width: "100vw",
-  height: "100vh",
-  top: 0,
-  left: 0,
-  position: "absolute"
-}
-
 export const MapboxGLMap = ({
   data,
   selectedId,
@@ -101,9 +93,10 @@ export const MapboxGLMap = ({
   highlightColor = 'rgba(255,102,0,1)'
 }) => {
 
-  const [map, setMap] = useState(null);
-  const mapContainer = useRef(null);
   
+  const mapContainer = useRef(null)
+  const [map, setMap] = useState(null)
+
   useEffect(() => {
     
     if(map) {
@@ -123,12 +116,9 @@ export const MapboxGLMap = ({
       initializeMap({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor })
     }
 
-  }, [selectedId])
+  }, [map, selectedId])
 
   return (
-    <div 
-      ref={mapContainer}
-      style={styles}
-      />
-    )
+    <div style={styles} ref={mapContainer} />
+  )
 }  
