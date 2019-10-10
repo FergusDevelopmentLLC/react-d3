@@ -6,7 +6,7 @@ import { oregon_county_pop_data } from "../../Data/data";
 import { oregon_county_pop_geo_data } from "../../Data/data";
 import { test_scatter_data } from "../../Data/data";
 
-export const App = () => {
+const color_breaks = () => {
   
   const alpha = 0.65;
   
@@ -19,9 +19,15 @@ export const App = () => {
     { rgb: [0, 90, 50, alpha], break: 850 }
   ];
 
+  return colorBreaks;
+
+}
+
+export const App = () => {
+  
   const [selectedId, setSelectedId] = useState(null);
   
-  //console.log('selectedId', selectedId)
+  console.log('selectedId', selectedId)
 
   return (
     <div>
@@ -29,7 +35,7 @@ export const App = () => {
         <MapboxGLMap
           data={oregon_county_pop_geo_data()}
           selectedId={selectedId}
-          colorBreaks={colorBreaks}
+          colorBreaks={color_breaks()}
         />
       </div>
       <div>
@@ -39,7 +45,7 @@ export const App = () => {
           svgHeight={275}
           itemDelay={150}
           onSelectItem={setSelectedId}
-          colorBreaks={colorBreaks}
+          colorBreaks={color_breaks()}
           tiltXLabels={true}
           visualizationTitle="Oregon Counties Population Density"
           leftAxisTitle="Persons Per Square Mile"

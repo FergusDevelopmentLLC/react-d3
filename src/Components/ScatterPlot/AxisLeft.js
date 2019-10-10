@@ -48,5 +48,5 @@ export const AxisLeft = ({
         </text>
       </g>
     </g>
-  );
-};
+  )
+}

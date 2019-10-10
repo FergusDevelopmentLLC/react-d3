@@ -68,5 +68,5 @@ export const AxisBottom = ({
         </text>
       </g>
     </g>
-  );
-};
+  )
+}

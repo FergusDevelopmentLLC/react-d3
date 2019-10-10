@@ -4,12 +4,12 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor }) => {
 
-  mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw';
+  mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGNhcnRlciIsImEiOiJjamV4b2g3Z2ExOGF4MzFwN3R1dHJ3d2J4In0.Ti-hnuBH8W4bHn7k6GCpGw'
   
   // let basemap = 'basic';
   // let basemap = 'streets';
   // let basemap = 'bright';
-  let basemap = 'light';
+  let basemap = 'light'
   //let basemap = 'dark';
   // let basemap = 'satellite';
 
@@ -18,21 +18,21 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
     style: `mapbox://styles/mapbox/${basemap}-v10`,
     center: [-119.84663447003527, 43.862206138711855],
     zoom: 5.839203767638953
-  });
+  })
 
-  map.addControl(new mapboxgl.NavigationControl());
-  map.addControl(new mapboxgl.FullscreenControl());
+  map.addControl(new mapboxgl.NavigationControl())
+  map.addControl(new mapboxgl.FullscreenControl())
 
   map.on("load", () => {
 
-    setMap(map);
+    setMap(map)
     
-    map.resize();
+    map.resize()
 
     map.addSource('aoi', {
       type: 'geojson',
       data
-    });
+    })
 
     let fc
     
@@ -57,7 +57,7 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
       paint: {
         'fill-color': fc
       }
-    });
+    })
 
     map.addLayer({
       id: 'aoi',
@@ -66,7 +66,7 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
       paint: {
         'line-color': aoiOutlineColor,
       }
-    });
+    })
 
     //lay down a transparent highlight line layer
     //by making alpha = 0
@@ -79,17 +79,12 @@ const initializeMap = ({ setMap, mapContainer, data, colorBreaks, aoiOutlineColo
         'line-width': 4,
         'line-dasharray': [1,1]
       }
-    });
-    
-    // map.on('moveend', () => {
-    //   console.log(map.getZoom())
-    //   console.log(map.getCenter())
-    // })
+    })
 
-  });
+  })
 }
 
-//width: "calc(100vw - 500px)",
+//https://itnext.io/viewport-units-the-css-you-didnt-know-about-but-should-24b104483429
 const styles = {
   width: "100vw",
   height: "100vh",
@@ -102,7 +97,6 @@ export const MapboxGLMap = ({
   data,
   selectedId,
   colorBreaks,
-  geoUniqueIdName = 'geoid',
   aoiOutlineColor = 'rgba(175,172,151,1)',
   highlightColor = 'rgba(255,102,0,1)'
 }) => {
@@ -112,13 +106,11 @@ export const MapboxGLMap = ({
   
   useEffect(() => {
     
-    if (!map) initializeMap({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor })
-
     if(map) {
       if (selectedId) {
         map.setPaintProperty('aoi-highlight', 'line-color', [
           'case',
-          ['==', ['get', `${geoUniqueIdName}`], selectedId],
+          ['==', ['get', 'id'], selectedId],
           highlightColor,
           'rgba(0,0,0,0)'
         ])
@@ -126,6 +118,9 @@ export const MapboxGLMap = ({
       else {
         map.setPaintProperty('aoi-highlight', 'line-color', 'rgba(0,0,0,0)')
       }
+    }
+    else {
+      initializeMap({ setMap, mapContainer, data, colorBreaks, aoiOutlineColor, highlightColor })
     }
 
   }, [selectedId])
@@ -136,4 +131,4 @@ export const MapboxGLMap = ({
       style={styles}
       />
     )
-  }
+}  

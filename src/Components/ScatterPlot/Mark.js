@@ -7,7 +7,7 @@ export const Mark = ({
   firePositionY = 0,
   cx,
   cy,
-  itemDelay = 0,
+  itemDelay,
   r = 1,
   color,
   onSelectItem,
@@ -21,11 +21,9 @@ export const Mark = ({
     let el = d3.select(circleRef.current)
 
     if(itemDelay > 0) {
-      el.attr("cy", firePositionY)
-      .attr("cx", firePositionX)
-        .transition().delay(itemDelay)
-        	.attr("cy", cy)
-          .attr("cx", cx)
+      el.transition().delay(itemDelay)
+        .attr("cy", cy)
+        .attr("cx", cx)
     }
     else {
       el.attr("cy", cy).attr("cx", cx)
@@ -49,7 +47,9 @@ export const Mark = ({
     <circle 
       r={r} 
       fill={color} 
-      ref={circleRef} 
+      ref={circleRef}
+      cx={itemDelay > 0 ? firePositionX : cx}
+      cy={itemDelay > 0 ? firePositionY : cy}
     />
   )
 }

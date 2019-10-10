@@ -67,7 +67,7 @@ export const ScatterPlot = ({
               firePositionY={chartHeight}
               cx={xScale(d.x)}
               cy={yScale(d.y)}
-              itemDelay={itemDelay * i + 1}
+              itemDelay={itemDelay * (i + 1)}
               r={dotRadius}
               onSelectItem={onSelectItem}
               color={dotColor}
@@ -91,5 +91,5 @@ export const ScatterPlot = ({
         />
       </g>
     </svg>
-  );
-};
+  )
+}

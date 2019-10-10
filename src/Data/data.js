@@ -5,7 +5,7 @@ export const oregon_county_pop_data = () => {
 
   for (let f of oregon_county_pop.features) {
     let returnItem = {};
-    returnItem.id = f.properties.geoid;
+    returnItem.id = f.properties.id;
     returnItem.type = f.properties.name;
     returnItem.count = f.properties.popsqmi;
     returnArray.push(returnItem);

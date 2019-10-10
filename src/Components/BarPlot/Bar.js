@@ -1,6 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+const setHighlight = (el, highlighted) => {
+    
+  if(highlighted) {
+    el.style('stroke-width','5');
+    el.style('stroke-dasharray','5 2');
+    el.style('stroke','rgba(255,102,0,1)');
+    el.style('cursor','pointer');
+  }
+  else {
+    el.style('stroke-width',"0");
+  }
+
+}
+
 export const Bar = ({
   id,
   x,
@@ -28,25 +42,20 @@ export const Bar = ({
     }
     
     if(onSelectItem) {
+
       el.on('mouseover', () => {
         onSelectItem(id)
-        el.style('stroke-width','5');
-        el.style('stroke-dasharray','5 2');
-        el.style('stroke','rgba(255,102,0,1)');
-        el.style('cursor','pointer');
+        setHighlight(el, true)
       })
 
       el.on('click', () => {
         onSelectItem(id)
-        el.style('stroke-width','5');
-        el.style('stroke-dasharray','5 2');
-        el.style('stroke','rgba(255,102,0,1)');
-        el.style('cursor','pointer');
+        setHighlight(el, true)
       })
       
       el.on('mouseout', () => {
         onSelectItem(null)
-        el.style('stroke-width',"0");
+        setHighlight(el, false)
       })
     }
 
