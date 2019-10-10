@@ -6,7 +6,7 @@ import { oregon_county_pop_geo_data } from "./Data/data";
 import { color_breaks } from "./Data/data";
 
 export const App = () => {
-  
+
   const [selectedId, setSelectedId] = useState(null);
   
   console.log('selectedId', selectedId)

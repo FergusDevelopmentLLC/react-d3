@@ -1,4 +1,4 @@
-import { oregon_county_pop } from "./oregon_county_pop.js";
+import oregon_county_pop from "./oregon_county_pop";
 
 export const oregon_county_pop_data = () => {
   let returnArray = [];
@@ -23,6 +23,7 @@ export const oregon_county_pop_data = () => {
 }
 
 export const oregon_county_pop_geo_data = () => {
+  console.log('oregon_county_pop', oregon_county_pop)
   return oregon_county_pop;
 }
 
