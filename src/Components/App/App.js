@@ -37,7 +37,7 @@ export const App = () => {
           data={oregon_county_pop_data()}
           svgWidth={450}
           svgHeight={275}
-          fireDelay={150}
+          itemDelay={150}
           onSelectItem={setSelectedId}
           colorBreaks={colorBreaks}
           tiltXLabels={true}

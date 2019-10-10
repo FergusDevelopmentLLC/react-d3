@@ -1,5 +1,5 @@
 {
-  "name": "react-d3",
+  "name": "react-d3-mapbox",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

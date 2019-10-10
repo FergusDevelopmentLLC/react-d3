@@ -9,7 +9,7 @@ export const Bar = ({
   width,
   height,
   color,
-  itemDelay = 0,
+  itemDelay,
   onSelectItem
 }) => {
 
@@ -21,13 +21,10 @@ export const Bar = ({
 
     if(itemDelay > 0) {
       el.transition()
-        .duration(500)
-          .delay(itemDelay)
+        .delay(itemDelay)
+          .duration(500)
             .attr('y', y)
             .attr('height', height)
-    }
-    else {
-      el.attr('y', y).attr('height', height)
     }
     
     if(onSelectItem) {
@@ -58,9 +55,9 @@ export const Bar = ({
   return (
     <rect
       x={x}
-      y={chartHeight}
+      y={itemDelay > 0 ? chartHeight : y}
       width={width}
-      height={0}
+      height={itemDelay > 0 ? 0 : height}
       fill={color}
       ref={barRef} />
   )
