@@ -77,7 +77,7 @@ export const MapboxGLMap = ({
       })
 
       setStatefulMap(mapboxGlMap)
-      //console.log('mapStateful set in state')
+      console.log('mapStateful set in state')
     })
   }
 
@@ -87,9 +87,9 @@ export const MapboxGLMap = ({
       initMap()
     }
     else {
-      //console.log('statefulMap or selectedId updated, this caused useEffect to rerun')
+      console.log('useEffect running! statefulMap or selectedId must have changed.')
       if (selectedId) {
-        //console.log(`selectedId is not null, highlight ${selectedId}`)
+        console.log(`selectedId is not null, highlight selectedId: ${selectedId}`)
         statefulMap.setPaintProperty('aoi-highlight', 'line-color', [
           'case',
           ['==', ['get', 'id'], selectedId],
