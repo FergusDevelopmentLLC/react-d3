@@ -58,6 +58,11 @@ export const Bar = ({
   })
 
   return (
-    <rect x={x} y={itemDelay > 0 ? chartHeight : y} width={width} height={itemDelay > 0 ? 0 : height} fill={color} ref={barRef} />
+    <rect 
+      ref={barRef}  
+      x={x} y={itemDelay > 0 ? chartHeight : y} 
+      width={width} height={itemDelay > 0 ? 0 : height} 
+      fill={color} 
+      />
   )
 }
