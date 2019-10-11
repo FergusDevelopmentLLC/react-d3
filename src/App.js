@@ -18,9 +18,10 @@ export const App = () => {
           data={oregon_county_pop_data()}
           svgWidth={450}
           svgHeight={275}
-          itemDelay={150}
+          itemDelay={200}
           onSelectItem={setSelectedId}
           colorBreaks={color_breaks()}
+          highlightLineColor={{ rgba: [255, 102, 0, 1] }}
           tiltXLabels={true}
           visualizationTitle="Oregon Counties Population Density"
           leftAxisTitle="Persons Per Square Mile"
@@ -30,8 +31,11 @@ export const App = () => {
       <div>
         <MapboxGLMap
           data={oregon_county_pop_geo_data()}
-          selectedId={selectedId}
           colorBreaks={color_breaks()}
+          highlightLineColor={{ rgba: [255, 102, 0, 1] }}
+          coordinates={[-119.846, 43.862]}
+          zoom={6}
+          selectedId={selectedId}
         />
       </div>
     </div>

@@ -20,6 +20,7 @@ export const BarPlot = ({
   itemDelay,
   colorBreaks,
   tiltXLabels = false,
+  highlightLineColor,
   visualizationTitle = "Visualization Title",
   leftAxisTitle = "Left Axis Title",
   bottomAxisTitle = "Bottom Axis Title",
@@ -64,6 +65,7 @@ export const BarPlot = ({
               width={xScale.bandwidth()}
               height={chartHeight - yScale(d.count) > minHeight ? chartHeight - yScale(d.count) : minHeight }
               color={colorScale(d.count)}
+              highlightLineColor={highlightLineColor}
               chartHeight={chartHeight}
               onSelectItem={onSelectItem}
             />

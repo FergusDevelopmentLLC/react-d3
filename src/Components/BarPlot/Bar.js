@@ -1,20 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const setHighlight = (el, highlighted) => {
-    
-  if(highlighted) {
-    el.style('stroke-width','5');
-    el.style('stroke-dasharray','5 2');
-    el.style('stroke','rgba(255,102,0,1)');
-    el.style('cursor','pointer');
-  }
-  else {
-    el.style('stroke-width',"0");
-  }
-
-}
-
 export const Bar = ({
   id,
   x,
@@ -23,12 +9,25 @@ export const Bar = ({
   width,
   height,
   color,
+  highlightLineColor = { rgba: [255, 102, 0, 1] },
   itemDelay,
   onSelectItem
 }) => {
 
   const barRef = useRef(null)
   
+  const setHighlight = (el, highlighted) => {
+    if(highlighted) {
+      el.style('stroke-width','5')
+      el.style('stroke-dasharray','5 2')
+      el.style('stroke',`rgba(${highlightLineColor.rgba[0]},${highlightLineColor.rgba[1]},${highlightLineColor.rgba[2]}, ${highlightLineColor.rgba[3]})`)
+      el.style('cursor','pointer')
+    }
+    else {
+      el.style('stroke-width',"0")
+    }
+  }
+
   useEffect(() => {
 
     let el = d3.select(barRef.current)
@@ -56,7 +55,7 @@ export const Bar = ({
       setHighlight(el, false)
     })
 
-  }, []);
+  })
 
   return (
     <rect x={x} y={itemDelay > 0 ? chartHeight : y} width={width} height={itemDelay > 0 ? 0 : height} fill={color} ref={barRef} />
