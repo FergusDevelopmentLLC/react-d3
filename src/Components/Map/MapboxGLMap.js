@@ -59,27 +59,12 @@ export const MapboxGLMap = ({
       })
       
       if(colorBreaks) {
-        mapboxGlMap.addLayer({
-          id: 'aoi-solid-fill',
-          source: 'aoi',
-          type: 'fill',
-          paint: {
-            'fill-color': getFillColor(colorBreaks)
-          }
-        })
+        mapboxGlMap.addLayer({ id: 'aoi-solid-fill', source: 'aoi', type: 'fill', paint: { 'fill-color': getFillColor(colorBreaks) }})
       }
       
-      mapboxGlMap.addLayer({
-        id: 'aoi-solid-line',
-        source: 'aoi',
-        type: 'line',
-        paint: {
-          'line-color': 'gray'
-        }
-      })
+      mapboxGlMap.addLayer({ id: 'aoi-solid-line', source: 'aoi', type: 'line', paint: { 'line-color': 'gray' } })
 
-      //lay down a transparent highlight line layer
-      //by making alpha = 0
+      //lay down a transparent highlight line layer, we'll use this layer later to highlight a feature based on selectedId
       mapboxGlMap.addLayer({
         id: 'aoi-highlight',
         source: 'aoi',

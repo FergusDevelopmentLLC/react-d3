@@ -7,7 +7,7 @@ import { color_breaks } from "./Data/data";
 
 export const App = () => {
 
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null)
   
   console.log('selectedId', selectedId)
 
