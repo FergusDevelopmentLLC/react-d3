@@ -35,9 +35,10 @@ export const Bar = ({
     if(itemDelay > 0) {
       el.transition()
         .delay(itemDelay)
-          .duration(500)
-            .attr('y', y)
-            .attr('height', height)
+          .duration(3000)
+            .ease(d3.easeElastic)
+              .attr('y', y)
+              .attr('height', height)
     }
     
     el.on('mouseover', () => {
